@@ -10,22 +10,29 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true,
     },
-    resume: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
 
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    image:{
+      type: DataTypes.STRING,
+      allowNull: false,
 
+    },
     createdInDb:{
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       defaultValue: true,
 
-    }
+    },
+    dieta:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    summary:{
+      type : DataTypes.TEXT,
+      allowNull: false
+    },
   });
  
 };
