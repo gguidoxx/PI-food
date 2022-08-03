@@ -1,40 +1,27 @@
 const { Router } = require("express");
-const { Recipe, diets } = require("../db");
+const { Recipe, Diets } = require("../db");
 const router = Router();
 
-router.post("/recipe", async (req, res, next) => {
-  let { title, summary, image, createdInDb, dieta } = req.body;
-  if (!title || !summary) {
-    return res.status(400).send("Por favor, coloque un titulo y un resumen.");
-  }
-  console.log(title);
+router.post("/", async (req, res, next) => {
+let {title, summary, image, diet, createdInDb} = req.body
+if (!title) {
+  res.status(400).send('Por favor inserte un nombre a su receta.')
+}
+if (!summary) {
+  res.status(400).send('¿De que trata su receta? Coloque un resumen por favor.')
+}
+
+try {
   let createRecipe = await Recipe.create({
-    title,
-    summary,
-    image,
-    dieta,
-    createdInDb,
-  });
-  let dietsDb = await diets.findAll({ where: { name: diets } });
-  createRecipe.addDiets(dietsDb);
-  res.status(200).send("Se creó su receta correctamente.");
+    title, summary, image, diet
+  })
+  let tipoDieta = await Diets.findAll({where: {name: diet}})
+  createRecipe.addDiets(tipoDieta)
+  res.status(200).send('Su receta fue creada correctamente.')
+} catch (error) {
+  next(error)
+}
+
 });
-// router.post("/recipes", async (req, res) => {
-//   let { title, summary, image, dieta, createdInDb } = req.body;
-//   let createRecipe = await Recipe.create({
-//     title,
-//     summary,
-//     image,
-//     dieta,
-//     createdInDb,
-//   });
-
-//   let dietDb = await Diets.findAll({
-//     where: { title: dieta },
-//   });
-
-//   createRecipe.addDiets(dietDb);
-//   res.send("Receta creada correctamente.");
-// });
 
 module.exports = router;

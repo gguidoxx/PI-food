@@ -5,7 +5,7 @@ const {Sequelize} = require('sequelize');
 
 // ME TRAIGO TODA LA DATA DE LA API, MAPEADA POR SOLO LOS ATRIBUTOS QUE NECESITO O ME INTERESAN
 const getApiInfo = async () => {
-  const apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=1&addRecipeInformation=true`)
+  const apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`)
    const apiInfo = await apiUrl.data.results.map(e =>{
     let stepByStep = e.analyzedInstructions
        return {
@@ -13,7 +13,7 @@ const getApiInfo = async () => {
            title: e.title,
            img: e.image,
            summary: e.summary,            // Resumen del plato.
-           Diets: e.diets.map((d)=> {return{name:d}}), // un array con los tipos de dieta de esa recet
+           Diets: e.diets.map((d)=> d), // un array con los tipos de dieta de esa recet
           }
           
    })

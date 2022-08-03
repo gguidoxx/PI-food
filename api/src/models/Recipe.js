@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
       defaultValue: true,
 
     },
-    dieta:{
+    diet:{
       type: DataTypes.STRING,
       allowNull: true,
     },
