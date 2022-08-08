@@ -12,7 +12,7 @@ const { Recipe, Diets } = require("../db");
 router.get("/", getAallRecipes);
 
 router.get("/:id", async (req, res) => {
-  const { id } = req.params;
+  const id = req.params.id;
 
   const allRecipes = await getAllRecipes();
 
@@ -28,16 +28,31 @@ router.get("/:id", async (req, res) => {
   } else {
     try {
       if (id) {
-        let recipeId = allRecipes.filter((el) => el.id === parseInt(id));
+        let recipeId = allRecipes.filter((el) => el.id == id);
         // console.log(recipeId);
         recipeId.length
           ? res.status(200).send(recipeId)
-          : res.status(400).send('No se encontró la receta deseada. ¡Pruebe inventando una!');
+          : res
+              .status(400)
+              .send(
+                `No se encontró la receta con el id ${id}. ¡Pruebe inventando una!`
+              );
       }
     } catch (err) {
-      res.json({ message: err });
+      
     }
   }
 });
+
+// router.get("/:id", async (req, res) => {
+//   let id = req.params.id;
+//   let allRecipes = await getAllRecipes();
+//   if (id) {
+//     let recipeId = await allRecipes.filter((e) => e.id == id);
+//     recipeId.length
+//       ? res.status(200).send(recipeId)
+//       : res.status(400).send("No se encontró la receta.");
+//   }
+// });
 
 module.exports = router;
