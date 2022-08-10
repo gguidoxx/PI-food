@@ -7,13 +7,13 @@ const {Sequelize} = require('sequelize');
 const getApiInfo = async () => {
   const apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`)
    const apiInfo = await apiUrl.data.results.map(e =>{
-    let stepByStep = e.analyzedInstructions
        return {
            id: e.id, 
            title: e.title,
-           img: e.image,
+           image: e.image,
            summary: e.summary,            // Resumen del plato.
            Diets: e.diets.map((d)=> d), // un array con los tipos de dieta de esa recet
+           stepByStep : e.analyzedInstructions
           }
           
    })
