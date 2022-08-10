@@ -8,14 +8,14 @@ const GET_BY_NAME = "GET_BY_NAME";
 const GET_BY_ID = "GET_BY_ID";
 const GET_DIETS = "GET_DIETS";
 
-export function getRecipes() {
-  return async function (dispatch) {
-    var json = await axios.get(`http://localhost:3001/recipes`);
-    return dispatch({
-      type: GET_RECIPES,
-      payload: json.data,
-    });
-  };
+export function getRecipes(){
+  return async function(dispatch){
+      var json = await axios.get(`http://localhost:3001/recipes`);
+      return dispatch({
+          type : GET_RECIPES,
+          payload: json.data
+      })
+  }
 }
 
 export function filterRecipesByDiet(payload) {

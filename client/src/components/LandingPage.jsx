@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 export default function LandingPage(){
     return (
-        <div className={styles.landing}>
+        <div>
         
-            <h1 className={styles.wlc}>Bienvenidos al recetario.</h1>
+            <h1>Bienvenidos al recetario.</h1>
             <Link to= '/home'> 
-            <button className={styles.btn}>Inicio</button>
+            <button>Inicio</button>
             </Link>
         </div>
        

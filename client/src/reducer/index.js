@@ -5,7 +5,7 @@ export const initialState = {
   diets: [],
 };
 
-function rootReducer(initialState, action) {
+function rootReducer(state= initialState, action) {
   switch (action.type) {
     case "GET_RECIPES":
       return {
@@ -13,6 +13,7 @@ function rootReducer(initialState, action) {
         recipes: action.payload,
         allRecipes: action.payload,
       };
+      default: return state;
   }
 }
 
