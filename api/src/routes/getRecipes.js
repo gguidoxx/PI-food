@@ -29,7 +29,6 @@ router.get("/:id", async (req, res) => {
     try {
       if (id) {
         let recipeId = allRecipes.filter((el) => el.id == id);
-        // console.log(recipeId);
         recipeId.length
           ? res.status(200).send(recipeId)
           : res
@@ -38,21 +37,7 @@ router.get("/:id", async (req, res) => {
                 `No se encontró la receta con el id ${id}. ¡Pruebe inventando una!`
               );
       }
-    } catch (err) {
-      
-    }
+    } catch (err) {}
   }
 });
-
-// router.get("/:id", async (req, res) => {
-//   let id = req.params.id;
-//   let allRecipes = await getAllRecipes();
-//   if (id) {
-//     let recipeId = await allRecipes.filter((e) => e.id == id);
-//     recipeId.length
-//       ? res.status(200).send(recipeId)
-//       : res.status(400).send("No se encontró la receta.");
-//   }
-// });
-
 module.exports = router;

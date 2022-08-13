@@ -25,13 +25,13 @@ module.exports = (sequelize) => {
       defaultValue: true,
 
     },
-    diet:{
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
+   
     summary:{
       type : DataTypes.TEXT,
       allowNull: false
+    },
+    analyzedInstructions:{
+      type : DataTypes.TEXT,
     },
   });
  

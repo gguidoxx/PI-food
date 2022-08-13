@@ -3,17 +3,22 @@ const { Recipe, Diets } = require("../db");
 const { API_KEY } = process.env;
 const {Sequelize} = require('sequelize');
 
+
+
+
 // ME TRAIGO TODA LA DATA DE LA API, MAPEADA POR SOLO LOS ATRIBUTOS QUE NECESITO O ME INTERESAN
 const getApiInfo = async () => {
   const apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`)
    const apiInfo = await apiUrl.data.results.map(e =>{
        return {
-           id: e.id, 
-           title: e.title,
-           image: e.image,
+           id: e.id,                      // ID de las recetas.
+           title: e.title,                // Titulo de las recetas.
+           image: e.image,                // Imagen de las recetas
            summary: e.summary,            // Resumen del plato.
-           Diets: e.diets.map((d)=> d), // un array con los tipos de dieta de esa recet
-           stepByStep : e.analyzedInstructions
+           diets: e.diets.map(d=>{return{name:d}}),      // un array con los tipos de dieta de esa recet
+           stepByStep : e.analyzedInstructions,  // Paso a paso de las recetas.
+           spoonacularScore : e.spoonacularScore, // Score de Spoonacular.
+           healthScore: e.healthScore, // Puntaje de salud de la receta.
           }
           
    })
@@ -70,7 +75,7 @@ const getAallRecipes = async (req, res) =>{
       const recipeApiInfo = await getApiInfo();
       const recipeApi = recipeApiInfo.filter((e) => {
         if (e.title.toLowerCase().includes(name.toLowerCase())) {
-          // si el titulo de la receta que traigo desde la api , incluye el nombre que me pasaron por params
+          // si el titulo de la receta que traigo desde la api , incluye el nombre que me pasaron por query
           return e; // va a retornarlo dentro del array del filter
         }
       });
