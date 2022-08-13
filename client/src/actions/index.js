@@ -61,8 +61,7 @@ export function getRecipesById(id) {
 
 export function getDiets() {
   return async function (dispatch) {
-    var json = await axios.get(`http://localhost:3001/types`);
-    console.log(json.data);
+    var json = await axios.get(`http://localhost:3001/diets`);
     return dispatch({
       type: GET_DIETS,
       payload: json.data,
@@ -72,7 +71,7 @@ export function getDiets() {
 
 export function postRecipes(payload) {
   return async function () {
-    var json = await axios.post(`http://localhost:3001/recipe`, payload);
+    var json = await axios.post(`http://localhost:3001/recipes`, payload);
     return json;
   };
 }

@@ -4,7 +4,6 @@ export const initialState = {
   details: [],
   diets: [],
 };
-console.log("estado diets" + initialState.diets);
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case "GET_RECIPES":
@@ -28,13 +27,13 @@ function rootReducer(state = initialState, action) {
     case "FILTER_BY_DIET":
       const allRecipe = state.allRecipes;
       // const allRec = state.recipes
-      console.log(allRecipe);
+    
 
       const typeDietFilter =
         action.payload === "All"
           ? allRecipe
           : allRecipe.filter((t) =>
-              t.Diets.find((e) => e.name === action.payload)
+              t.diets.find((e) => e.name === action.payload)
             );
       console.log(action.payload);
 
@@ -99,11 +98,10 @@ function rootReducer(state = initialState, action) {
         ...state,
       };
 
-    case "GET_TYPE_DIETS":
-      // console.log('action.payload',action.payload);
+    case "GET_DIETS":
       return {
         ...state,
-        typediets: action.payload,
+        diets: action.payload,
       };
 
     default:

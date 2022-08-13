@@ -6,6 +6,7 @@ import {
   filterRecipesByDiet,
   orderByName,
   orderByPuntuation,
+  getDiets,
 } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
@@ -15,6 +16,7 @@ import SearchBar from "./Searchbar";
 export default function Home() {
   const dispatch = useDispatch(); //Es lo mismo que hacer un maptoprops
   const allRecipes = useSelector((state) => state.recipes);
+
 
   //PAGINADO
   const [search, setSearch] = useState("");
@@ -28,6 +30,7 @@ export default function Home() {
     indexOfFirstRecipe,
     indexOfLastRecipe
   ); // Me devuelve el índice 0 y el índice 8 (9 recetas) de cada página.
+  console.log(currentRecipes)
 
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -94,6 +97,7 @@ export default function Home() {
           <option value="primal">Primal</option>
           <option value="whole 30">Whole 30</option>
         </select>
+
         <SearchBar></SearchBar>
         <Paginado
           recipesPerPage={recipesPerPage}
@@ -101,14 +105,24 @@ export default function Home() {
           paginado={paginado}
         />
 
-        {currentRecipes?.map((e) => {
+       {/* {currentRecipes?.map((e) => {
           return (
             <Link to={"/home/" + e.id}>
               <Card title={e.title} image={e.image} diet={e.diet} key={e.id} />
             </Link>
           );
+        })} */}
+        {currentRecipes.map((e) => {
+
+          return (
+            <Link to={"/home/" + e.id}>
+              <Card title={e.title} image={e.image} diets={e.diets} key={e.id} />
+            </Link>
+          );
         })}
+        
       </div>
+      
     </div>
   );
 }
