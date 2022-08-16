@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
       type : DataTypes.TEXT,
       allowNull: false
     },
-    analyzedInstructions:{
+    stepByStep:{
       type : DataTypes.TEXT,
     },
   });
