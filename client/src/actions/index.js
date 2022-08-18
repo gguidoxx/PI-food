@@ -7,15 +7,23 @@ const ORDER_BY_PUNTUATION = "ORDER_BY_PUNTUATION";
 const GET_BY_NAME = "GET_BY_NAME";
 const GET_BY_ID = "GET_BY_ID";
 const GET_DIETS = "GET_DIETS";
+const PUT_RECIPE = "PUT_RECIPE";
+const CLEAR_STATE = "CLEAR_STATE";
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 
-export function getRecipes(){
-  return async function(dispatch){
-      var json = await axios.get(`http://localhost:3001/recipes`);
-      return dispatch({
-          type : GET_RECIPES,
-          payload: json.data
-      })
-  }
+export function getRecipes() {
+  return async function (dispatch) {
+    var json = await axios.get(`http://localhost:3001/recipes`);
+    return dispatch({
+      type: GET_RECIPES,
+      payload: json.data,
+    });
+  };
+}
+export function clearState() {
+  return {
+    type: CLEAR_STATE,
+  };
 }
 
 export function filterRecipesByDiet(payload) {

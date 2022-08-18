@@ -1,0 +1,119 @@
+.divPrincipal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+  height: 100%;
+  top: 0px;
+  margin: 0px;
+}
+.all {
+  position: relative;
+  top: 0px;
+}
+.sb {
+  position: fixed;
+  margin: 0px;
+  text-align: right;
+  right: 100px;
+}
+.select {
+  background-color: yellow
+}
+.options {
+  position: fixed;
+  margin: 0px;
+  left: 0px;
+  text-align: left;
+}
+
+
+.nuevareceta {
+  position: flex;
+  margin: 0px;
+  right: 0px;
+  left: 0px;
+  margin-left: 40px;
+  justify-content: center;
+  text-align: center;
+}
+.buttonreload {
+  position: fixed;
+  margin: 0px;
+  right: 10px;
+  text-align: right;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.paginado {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.refresh {
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: italic;
+  color: #000000;
+  font-size: 14px;
+  background: rgb(193, 215, 233);
+  padding: 3px 13px 3px 13px;
+  text-decoration: none;
+}
+.input {
+  background-color: #e6d57e;
+}
+.create {
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: italic;
+  color: #000000;
+  font-size: 14px;
+  background: rgb(193, 228, 187);
+  padding: 3px 13px 3px 13px;
+  text-decoration: none;
+}
+.search {
+  display: flex;
+  justify-content: start;
+  margin-left: 50px;
+  margin-bottom: 25px;
+  margin-top: 15px;
+}
+.buttonreload {
+  cursor: pointer;
+  font-family: italic;
+  color: #000000;
+  font-size: 14px;
+  background: #e6d57e;
+  padding: 3px 13px 3px 13px;
+  text-decoration: none;
+}
+
+.buttonreload:hover {
+  background: #d8e66c;
+  text-decoration: none;
+  cursor: pointer;
+}
+.create:hover {
+  background: #d8e66c;
+  text-decoration: none;
+  cursor: pointer;
+}
+.refresh:hover {
+  background: #d8e66c;
+  text-decoration: none;
+  cursor: pointer;
+}

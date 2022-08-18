@@ -3,17 +3,33 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getRecipesByName } from "../actions/index";
 
+
 export default function SearchBar() {
   const dispatch = useDispatch();
   const [name, setName] = useState();
+
+
   function handleInputChange(e) {
     e.preventDefault();
     setName(e.target.value);
+    if (!name) {
+      return getRecipesByName()
+    }
+    else{
+      dispatch(getRecipesByName(name));
+
+    }
     console.log(name);
   }
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(getRecipesByName(name));
+    if (!name) {
+      return getRecipesByName()
+    }
+    else{
+      dispatch(getRecipesByName(name));
+
+    }
   }
   return (
     <div>

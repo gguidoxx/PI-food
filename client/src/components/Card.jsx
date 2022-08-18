@@ -1,23 +1,34 @@
 import React from "react";
+import styles from "./Card.module.css";
 
-export default function Card({ id, title, image, diets }) {
+export default function Card({ id, title, image, diets, healthScore }) {
+  console.log(diets)
   return (
-    <div>
-      <h3>{title}</h3>
-      <div>
-        {diets.map((e) => (
-          <h5>{e.name + " "}</h5>
-        ))}
+    
+    <div className={styles.card}>
+      <div className={styles.cd}>
+        <h3>{title}</h3>
+        <img
+          className={styles.cardimg}
+          src={
+            image
+              ? image
+              : "https://image.freepik.com/foto-gratis/tabla-picar-rodeada-verduras-huevos-granos-arroz-escritorio_23-2148062361.jpg"
+          }
+          alt="img not found"
+        />
+        <div className={styles.tipes}>
+          {" "}
+          {diets.map((t) => (
+            <li key={t.name}>
+              <span key={t.name}> {t.name}</span>
+            </li>
+          ))}{" "}
+        </div>
       </div>
-      <img
-        src={
-          image
-            ? image
-            : "https://img.freepik.com/vector-gratis/plato-cubiertos_1284-42854.jpg?w=900&t=st=1660155905~exp=1660156505~hmac=1ee908a2c8e206680afceb33a68164822724ffa2cdbe04a2e78c86cde2db9dbf"
-        }
-        alt="not found"
-        width="200px"
-      />
+      
     </div>
+    
   );
+  
 }

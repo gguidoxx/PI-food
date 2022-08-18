@@ -3,6 +3,7 @@ export const initialState = {
   allRecipes: [],
   details: [],
   diets: [],
+  
 };
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -103,6 +104,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         diets: action.payload,
       };
+      case "CLEAR_STATE":
+      return{
+        ...initialState,
+      }
+   
 
     default:
       return state;
@@ -110,3 +116,4 @@ function rootReducer(state = initialState, action) {
 }
 
 export default rootReducer;
+    
