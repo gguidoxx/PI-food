@@ -1,29 +1,54 @@
 const axios = require("axios");
 const { Recipe, Diets } = require("../db");
 const { API_KEY } = process.env;
-const {Sequelize} = require('sequelize');
-
-
-
+const { Sequelize } = require("sequelize");
 
 // ME TRAIGO TODA LA DATA DE LA API, MAPEADA POR SOLO LOS ATRIBUTOS QUE NECESITO O ME INTERESAN
 const getApiInfo = async () => {
-  const apiUrl = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=10&addRecipeInformation=true`)
-   const apiInfo = await apiUrl.data.results.map(e =>{
-       return {
-           id: e.id,                      // ID de las recetas.
-           title: e.title,                // Titulo de las recetas.
-           image: e.image,                // Imagen de las recetas
-           summary: e.summary,            // Resumen del plato.
-           diets: e.diets.map(d=>{return{name:d}}),      // un array con los tipos de dieta de esa recet
-           stepByStep : e.analyzedInstructions,  // Paso a paso de las recetas.
-           spoonacularScore : e.spoonacularScore, // Score de Spoonacular.
-           healthScore: e.healthScore, // Puntaje de salud de la receta.
-          }
-          
-   })
-  return apiInfo
-}
+  const apiUrl = await axios.get(
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`
+  );
+  const apiInfo = await apiUrl.data.results.map((e) => {
+    return {
+      id: e.id, // ID de las recetas.
+      title: e.title, // Titulo de las recetas.
+      image: e.image, // Imagen de las recetas
+      summary: e.summary, // Resumen del plato.
+      diets: e.diets.map((d) => {
+        return { name: d };
+      }), // Las dietas que me llegan en formato {name: name}
+      stepByStep: e.analyzedInstructions, // Paso a paso de las recetas.
+      spoonacularScore: e.spoonacularScore, // Score de Spoonacular.
+      healthScore: e.healthScore, // Puntaje de salud de la receta.
+    };
+  });
+  return apiInfo;
+};
+
+// const getApiInfo = () =>
+//   axios
+//     .get(
+//       `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`
+//     )
+//     .then((response) => {
+//       return response.data.results.map((e) => {
+//         return {
+//           id: e.id,
+//           title: e.title,
+//           image: e.image,
+//           summary: e.summary,
+//           diets: e.diets.map((d) => {
+//             return { name: d };
+//           }),
+//           stepByStep: e.analyzedInstructions,
+//           healthScore: e.healthScore,
+//         };
+//       });
+//     })
+
+    // .catch((error) => {
+    //   console.log(error);
+    // });
 
 //TRAIGO TODA LA DATA QUE HAY EN MI BASE DE DATOS
 const getDbInfo = async () => {
@@ -46,18 +71,18 @@ const getAllRecipes = async () => {
   const allRecipes = [...apiInfo, ...dbInfo];
   return allRecipes;
 };
-const getAallRecipes = async (req, res) =>{
-  const { name } = req.query; 
+const getAallRecipes = async (req, res) => {
+  const { name } = req.query;
   // Si no hay ?name= en la URL entra al siguiente if
   if (!name) {
     try {
       //Intento traer todas las recetas que vengan por API y por DB
-      const recipeApiInfo = await getApiInfo(); 
+      const recipeApiInfo = await getApiInfo();
       const recipeBD = await Recipe.findAll({
         //Que incluya el modelo "diets" con la propiedad "name"
         include: {
-          model: Diets, 
-          attributes: ["name"], 
+          model: Diets,
+          attributes: ["name"],
           through: {
             attributes: [],
           },
@@ -70,7 +95,7 @@ const getAallRecipes = async (req, res) =>{
     }
     // En caso de tener un nombre por query, entra al else.
   } else {
-   // ¡¡¡HAY QUE PASAR TODO A LOWERCASE PARA QUE PASE POR EL FILTRADO SIN PROBLEMAS!!!
+    // ¡¡¡HAY QUE PASAR TODO A LOWERCASE PARA QUE PASE POR EL FILTRADO SIN PROBLEMAS!!!
     try {
       const recipeApiInfo = await getApiInfo();
       const recipeApi = recipeApiInfo.filter((e) => {
@@ -84,11 +109,11 @@ const getAallRecipes = async (req, res) =>{
         // los mismo que lo anterior, pero ahora desde la DB
         where: {
           //Filtro el título para que me traiga todas las recetas que contengan lo enviado por query.
-          title: { [Sequelize.Op.like]: `%${name.toLowerCase()}%` }, 
-        }, 
+          title: { [Sequelize.Op.like]: `%${name.toLowerCase()}%` },
+        },
         include: {
           model: Diets,
-          attributes: ["name"], 
+          attributes: ["name"],
           through: {
             attributes: [],
           },
@@ -96,15 +121,16 @@ const getAallRecipes = async (req, res) =>{
       });
       const respuesta = await Promise.all(recipeBD.concat(recipeApi)); // Concateno todo luego de que terminen las promesas.
       //Si la receta(?name=) pasada por query no está en la API, y tampoco fue creada por base de datos, devuelvo un 404 avisando que no hay receta.
-      if (respuesta.length === 0) {res.send('No se encontró la receta deseada. ¡Pruebe inventando una!'); }
-      else{
-        return res.send(respuesta); 
+      if (respuesta.length === 0) {
+        res.send("No se encontró la receta deseada. ¡Pruebe inventando una!");
+      } else {
+        return res.send(respuesta);
       }
     } catch (err) {
       res.json({ err });
     }
   }
-}
+};
 
 module.exports = {
   getAllRecipes,

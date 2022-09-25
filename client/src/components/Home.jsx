@@ -6,13 +6,14 @@ import {
   filterRecipesByDiet,
   orderByName,
   orderByPuntuation,
-  setActualPage,
+  filterCreated,
 } from "../actions";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
 import SearchBar from "./Searchbar";
 import styles from "./Home.module.css";
+import Loading from "./loading";
 
 export default function Home() {
   const dispatch = useDispatch(); //Es lo mismo que hacer un maptoprops
@@ -48,6 +49,7 @@ export default function Home() {
   function handleFilterTypeDiet(e) {
     dispatch(filterRecipesByDiet(e.target.value));
   }
+
   function handleSort(e) {
     e.preventDefault();
     dispatch(orderByName(e.target.value));
@@ -60,6 +62,12 @@ export default function Home() {
     setCurrentPage(1);
     setOrder(`ordenado ${e.target.value}`);
   }
+
+  if(!allRecipes.length) {
+    return(
+     <Loading/>
+    )
+  } else{
 
   return (
     <div className={styles.all}>
@@ -76,7 +84,6 @@ export default function Home() {
               onChange={(e) => handlePuntuation(e)}
               className={styles.select}
             >
-              <h5>SAludable</h5>
               <option value="mayormenor">Healthier</option>
               <option value="menormayor">Less healthy</option>
             </select>{" "}
@@ -129,6 +136,7 @@ export default function Home() {
       <div className={styles.cards}>
         {currentRecipes.map((e) => {
           return (
+            <div key={e.id}>
             <Link to={"/recipes/" + e.id}>
               <Card
                 title={e.title}
@@ -138,6 +146,7 @@ export default function Home() {
                 key={e.id}
               />
             </Link>
+            </div>
           );
         })}
       </div>
@@ -147,5 +156,5 @@ export default function Home() {
         paginado={paginado}
       />
     </div>
-  );
+  );}
 }

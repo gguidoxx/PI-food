@@ -2,9 +2,8 @@ import React from "react";
 import styles from "./Card.module.css";
 
 export default function Card({ id, title, image, diets, healthScore }) {
-  console.log(diets)
+  console.log(diets);
   return (
-    
     <div className={styles.card}>
       <div className={styles.cd}>
         <h3>{title}</h3>
@@ -13,7 +12,7 @@ export default function Card({ id, title, image, diets, healthScore }) {
           src={
             image
               ? image
-              : "https://image.freepik.com/foto-gratis/tabla-picar-rodeada-verduras-huevos-granos-arroz-escritorio_23-2148062361.jpg"
+              : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5KKebEqn5ILWSba925GRjqdN9yk3nkE173w&usqp=CAU"
           }
           alt="img not found"
         />
@@ -26,9 +25,6 @@ export default function Card({ id, title, image, diets, healthScore }) {
           ))}{" "}
         </div>
       </div>
-      
     </div>
-    
   );
-  
 }

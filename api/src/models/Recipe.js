@@ -15,24 +15,21 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    image:{
+    image: {
       type: DataTypes.STRING,
       allowNull: false,
-
     },
-    createdInDb:{
+    createdInDb: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
+    },
 
+    summary: {
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
-   
-    summary:{
-      type : DataTypes.TEXT,
-      allowNull: false
-    },
-    stepByStep:{
-      type : DataTypes.TEXT,
+    stepByStep: {
+      type: DataTypes.TEXT,
     },
   });
- 
 };

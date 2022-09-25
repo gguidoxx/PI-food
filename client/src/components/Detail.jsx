@@ -55,14 +55,14 @@ export default function Detail(props) {
                   : myRecipe[0].stepByStep}
               </h4>
               <h3>
-                HealthScore: <br></br>
+                HealthScore: <br></br></h3>
                 <h4>%{myRecipe[0].healthScore}</h4>
-              </h3>
+              
             </div>
           </div>
         </div>
       ) : (
-        <div class="spinner">
+        <div className={styles.spinner}>
           <span>L</span>
           <span>O</span>
           <span>A</span>

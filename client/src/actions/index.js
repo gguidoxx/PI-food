@@ -9,7 +9,7 @@ const GET_BY_ID = "GET_BY_ID";
 const GET_DIETS = "GET_DIETS";
 const PUT_RECIPE = "PUT_RECIPE";
 const CLEAR_STATE = "CLEAR_STATE";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const FILTER_CREATED= "FILTER_CREATED"
 
 export function getRecipes() {
   return async function (dispatch) {
@@ -82,4 +82,14 @@ export function postRecipes(payload) {
     var json = await axios.post(`http://localhost:3001/recipes`, payload);
     return json;
   };
+
+}
+
+export function filterCreated(payload){
+  return {
+    type: FILTER_CREATED,
+    payload,
+  }
+
+  
 }

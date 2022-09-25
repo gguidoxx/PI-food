@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getRecipesByName } from "../actions/index";
 
 
 export default function SearchBar() {
   const dispatch = useDispatch();
   const [name, setName] = useState();
+  const recipes = useSelector((state) => state.recipes);
 
 
   function handleInputChange(e) {
