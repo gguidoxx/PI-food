@@ -8,10 +8,7 @@
   top: 0px;
   margin: 0px;
 }
-.all {
-  position: relative;
-  top: 0px;
-}
+
 .sb {
   position: fixed;
   margin: 0px;
@@ -46,9 +43,8 @@
 }
 
 .cards {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   justify-content: center;
   align-items: center;
 }
