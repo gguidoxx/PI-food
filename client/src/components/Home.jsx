@@ -30,7 +30,6 @@ export default function Home() {
     indexOfFirstRecipe,
     indexOfLastRecipe
   ); // Me devuelve el índice 0 y el índice 8 (9 recetas) de cada página.
-  console.log(currentRecipes);
 
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -63,98 +62,99 @@ export default function Home() {
     setOrder(`ordenado ${e.target.value}`);
   }
 
-  if(!allRecipes.length) {
-    return(
-     <Loading/>
-    )
-  } else{
-
-  return (
-    <div className={styles.all}>
-      <div>
-        <div className={styles.divPrincipal}>
-          <div className={styles.options}>
-            {" "}
-            <select onChange={(e) => handleSort(e)} className={styles.select}>
-              
-              <option value="asc">A to Z</option>
-              <option value="desc">Z to A</option>
-            </select>{" "}
-            <select
-              onChange={(e) => handlePuntuation(e)}
-              className={styles.select}
-            >
-              <option value="mayormenor">Healthier</option>
-              <option value="menormayor">Less healthy</option>
-            </select>{" "}
-            <select
-              onChange={(e) => handleFilterTypeDiet(e)}
-              className={styles.select}
-            >
-              <option>Diet type</option>
-              <option value="All">All recipes</option>
-              <option value="gluten free">Gluten Free</option>
-              <option value="ketogenic">Ketogenic</option>
-              <option value="lacto ovo vegetarian">Vegetarian </option>
-              <option value="lacto-vegetarian">Lacto-Vegetarian </option>
-              <option value="lacto ovo vegetarian">Ovo-Vegetarian</option>
-              <option value="vegan">Vegan</option>
-              <option value="pescatarian">Pescatarian</option>
-              <option value="paleolithic">Paleolithic</option>
-              <option value="primal">Primal</option>
-              <option value="whole 30">Whole 30</option>
-            </select>{" "}
-          </div>
-          <div className={styles.sb}>
-            <SearchBar></SearchBar>
-          </div>
-          <button
-            onClick={(e) => {
-              handleClick(e);
-            }}
-            className={styles.buttonreload}
-          >
-            Reload🔄
-          </button>
-        </div>
-        <div className={styles.nuevareceta}>
-          {" "}
-          <h1>Recetario de Guido.</h1>
-          <Link to="/recipes">
-            <button>Create new recipe.</button>
-          </Link>
-        </div>
-      </div>
-
-      <Paginado
-        recipesPerPage={recipesPerPage}
-        allRecipes={allRecipes.length}
-        paginado={paginado}
-        key={currentPage}
-      />
-
-      <div className={styles.cards}>
-        {currentRecipes.map((e) => {
-          return (
-            <div key={e.id}>
-            <Link to={"/recipes/" + e.id}>
-              <Card
-                title={e.title}
-                image={e.image}
-                diets={e.diets}
-                healthScore={e.healthScore}
-                key={e.id}
-              />
-            </Link>
+  if (!allRecipes.length) {
+    return <Loading />;
+  } else {
+    return (
+      <div className={styles.all}>
+        <div>
+          <div className={styles.divPrincipal}>
+            <div className={styles.options}>
+              {" "}
+              <select onChange={(e) => handleSort(e)} className={styles.select}>
+                <option value="asc">A to Z</option>
+                <option value="desc">Z to A</option>
+              </select>{" "}
+              <select
+                onChange={(e) => handlePuntuation(e)}
+                className={styles.select}
+              >
+                <option value="mayormenor">Healthier</option>
+                <option value="menormayor">Less healthy</option>
+              </select>{" "}
+              <select
+                onChange={(e) => handleFilterTypeDiet(e)}
+                className={styles.select}
+              >
+                <option>Diet type</option>
+                <option value="All">All recipes</option>
+                <option value="gluten free">Gluten Free</option>
+                <option value="ketogenic">Ketogenic</option>
+                <option value="lacto ovo vegetarian">Vegetarian </option>
+                <option value="lacto-vegetarian">Lacto-Vegetarian </option>
+                <option value="lacto ovo vegetarian">Ovo-Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="pescatarian">Pescatarian</option>
+                <option value="paleolithic">Paleolithic</option>
+                <option value="primal">Primal</option>
+                <option value="whole 30">Whole 30</option>
+              </select>{" "}
             </div>
-          );
-        })}
+            <div className={{ backgroundColor: "black" }}>
+              <div className={styles.sb}>
+                <SearchBar></SearchBar>
+              </div>
+              <button
+                onClick={(e) => {
+                  handleClick(e);
+                }}
+                className={styles.buttonreload}
+              >
+                Reload🔄
+              </button>
+            </div>
+          </div>
+          <div className={styles.nuevareceta}>
+            {" "}
+            <h1>Recetario de Guido.</h1>
+            <Link to="/recipes">
+              <button>Create new recipe.</button>
+            </Link>
+          </div>
+        </div>
+
+        <Paginado
+          recipesPerPage={recipesPerPage}
+          allRecipes={allRecipes.length}
+          paginado={paginado}
+          key={currentPage}
+        />
+
+        <div style={{ textAlign: "center" }}>
+          <div className={styles.cards}>
+            {currentRecipes.map((e) => {
+              return (
+                <div key={e.id}>
+                  <Link to={"/recipes/" + e.id}>
+                    <Card
+                      title={e.title}
+                      image={e.image}
+                      diets={e.diets}
+                      healthScore={e.healthScore}
+                      key={e.id}
+                    />
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <Paginado
+          recipesPerPage={recipesPerPage}
+          allRecipes={allRecipes.length}
+          paginado={paginado}
+        />
       </div>
-      <Paginado
-        recipesPerPage={recipesPerPage}
-        allRecipes={allRecipes.length}
-        paginado={paginado}
-      />
-    </div>
-  );}
+    );
+  }
 }

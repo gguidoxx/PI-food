@@ -20,7 +20,7 @@ export default function SearchBar() {
       dispatch(getRecipesByName(name));
 
     }
-    console.log(name);
+ 
   }
   function handleSubmit(e) {
     e.preventDefault();
