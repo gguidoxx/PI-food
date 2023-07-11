@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const GET_RECIPES = "GET_RECIPES";
 const FILTER_BY_DIET = "FILTER_BY_DIET";
 const ORDER_BY_NAME = "ORDER_BY_NAME";
@@ -11,7 +12,7 @@ const PUT_RECIPE = "PUT_RECIPE";
 const CLEAR_STATE = "CLEAR_STATE";
 const FILTER_CREATED= "FILTER_CREATED"
 
-process.env.REACT_APP_URL_API
+
 export function getRecipes() {
   return async function (dispatch) {
     var json = await axios.get(`${process.env.REACT_APP_URL_API}/recipes`);
