@@ -9,9 +9,9 @@ const GET_BY_ID = "GET_BY_ID";
 const GET_DIETS = "GET_DIETS";
 const PUT_RECIPE = "PUT_RECIPE";
 const CLEAR_STATE = "CLEAR_STATE";
-const FILTER_CREATED = "FILTER_CREATED";
+const FILTER_CREATED= "FILTER_CREATED"
 
-process.env.REACT_APP_URL_API;
+process.env.REACT_APP_URL_API
 export function getRecipes() {
   return async function (dispatch) {
     var json = await axios.get(`${process.env.REACT_APP_URL_API}/recipes`);
@@ -50,9 +50,7 @@ export function orderByPuntuation(payload) {
 
 export function getRecipesByName(name) {
   return async function (dispatch) {
-    var json = await axios.get(
-      `${process.env.REACT_APP_URL_API}/recipes?name=${name}`
-    );
+    var json = await axios.get(`${process.env.REACT_APP_URL_API}/recipes?name=${name}`);
     return dispatch({
       type: GET_BY_NAME,
       payload: json.data,
@@ -62,9 +60,7 @@ export function getRecipesByName(name) {
 
 export function getRecipesById(id) {
   return async function (dispatch) {
-    var json = await axios.get(
-      `${process.env.REACT_APP_URL_API}/recipes/${id}`
-    );
+    var json = await axios.get(`${process.env.REACT_APP_URL_API}/recipes/${id}`);
     return dispatch({
       type: GET_BY_ID,
       payload: json.data,
@@ -84,17 +80,17 @@ export function getDiets() {
 
 export function postRecipes(payload) {
   return async function () {
-    var json = await axios.post(
-      `${process.env.REACT_APP_URL_API}/recipes`,
-      payload
-    );
+    var json = await axios.post(`${process.env.REACT_APP_URL_API}/recipes`, payload);
     return json;
   };
+
 }
 
-export function filterCreated(payload) {
+export function filterCreated(payload){
   return {
     type: FILTER_CREATED,
     payload,
-  };
+  }
+
+  
 }
